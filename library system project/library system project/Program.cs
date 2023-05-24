@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -10,9 +11,12 @@ namespace LMS
         public int mode { get; set; }
         public string password { get; set; }
         public string phone_number { get; set; } //contact info
-
+        public int paid_fines { get; set; }
+        public int  outstanding_fines { get; set; }
         public User(string un, string pw, int m, string phone)
         {
+            paid_fines= 0;
+            outstanding_fines= 0;
             username = un;
             password = pw;
             mode = m;
@@ -68,7 +72,7 @@ namespace LMS
         }
         public void print_title_ISBN()
         {
-            Console.WriteLine("Title: " + title + "         |" + "ISBN: " + ISBN);
+            Console.WriteLine("Title: " + title + "         |" + "ISBN:      " + ISBN);
             Console.WriteLine("______________________________________________________________");
         }
 
@@ -88,12 +92,10 @@ namespace LMS
         public User user;
         public Book book;
         public int due_date;
-        public int fine;
     }
     public struct Book_return_req
     {
-        public User user;
-        public Book book;
+        public Loaned_books lb;
         public int id;
     }
 
@@ -107,7 +109,7 @@ namespace LMS
         public static List<Loaned_books> books_on_loan = new List<Loaned_books>();
         public static List<Book_return_req> books_return_reqs = new List<Book_return_req>();
 
-        public static int req_id = 0, books_return_req_id = 0;
+        public static int req_id = 0, books_return_req_id = 0,late_fee=100;
 
 
         public static void unit_testing()
@@ -775,7 +777,7 @@ namespace LMS
         {
             foreach (BorrowReq r in borrowRequests)
             {
-                Console.WriteLine("requist_id " + r.id + " | user " + r.user.username + " requists " + r.book.title);
+                Console.WriteLine("request_id " + r.id + " | user " + r.user.username + " requests " + r.book.title);
 
             }
         }
@@ -783,12 +785,12 @@ namespace LMS
         {
             print_borrow_req();
             Console.WriteLine("__________________________________________________");
-            Console.WriteLine("Please enter the id of the requist you want to respond to....");
+            Console.WriteLine("Please enter the id of the request you want to respond to....");
             int req_id = int.Parse(Console.ReadLine());
             BorrowReq r = borrowRequests.Find(borrowreq => borrowreq.id == req_id);
             if (borrowRequests.Exists(borrowreq => borrowreq.id == req_id))
             {
-                Console.WriteLine("Please enter yes if you approve this requist. and no if you dont approve it.....");
+                Console.WriteLine("Please enter yes if you approve this request. and no if you dont approve it.....");
                 string s = Console.ReadLine();
                 if (s == "yes")
                 {
@@ -805,7 +807,7 @@ namespace LMS
                         }
                     }
                     Console.WriteLine();
-                    Console.WriteLine("requist updated.");
+                    Console.WriteLine("request updated.");
                     //to do map user book
                     Loaned_books lb = new Loaned_books();
                     lb.book = r.book;
@@ -826,7 +828,7 @@ namespace LMS
             }
             else
             {
-                Console.WriteLine("requist not found.");
+                Console.WriteLine("request not found.");
             }
 
         }
@@ -837,7 +839,7 @@ namespace LMS
             {
                 if (lb.user.username == logged_in_account.username)
                 {
-                    Console.WriteLine("title " + lb.book.title + "   | ISBN" + lb.book.ISBN);
+                    Console.WriteLine("title " + lb.book.title + "   | ISBN  " + lb.book.ISBN);
                     count++;
                 }
             }
@@ -848,10 +850,11 @@ namespace LMS
                 Console.WriteLine("_______________________________________________________");
                 int isbn = int.Parse(Console.ReadLine());
                 Book_return_req book_Return_Req = new Book_return_req();
-                book_Return_Req.user = logged_in_account;
-                book_Return_Req.book = books.Find(book => book.ISBN == isbn);
+                book_Return_Req.lb = books_on_loan.Find(books_on_loan => books_on_loan.book.ISBN == isbn);
+
                 books_return_req_id++;
                 book_Return_Req.id = books_return_req_id;
+
                 Console.WriteLine("request pending librarian approval.");
                 books_return_reqs.Add(book_Return_Req);
 
@@ -868,7 +871,7 @@ namespace LMS
         {
             foreach (Book_return_req brr in books_return_reqs)
             {
-                Console.WriteLine("customer " + brr.user.username + " wants to return book:      =>     " + brr.book.ISBN + "   " + brr.book.title);
+                Console.WriteLine("ID:"+brr.id+"-  customer " + brr.lb.user.username + " wants to return book:      =>     " + brr.lb.book.ISBN + "   " + brr.lb.book.title);
             }
 
         }
@@ -880,7 +883,7 @@ namespace LMS
             Book_return_req brr = books_return_reqs.Find(brr => brr.id == id);
             if (books_return_reqs.Exists(brr => brr.id == id))
             {
-                brr.book.on_loan = false;
+                brr.lb.book.on_loan = false;
                 int days_taken;
                 Console.WriteLine("please enter how many days the book have been taken...");
                 days_taken = int.Parse(Console.ReadLine());
@@ -894,14 +897,34 @@ namespace LMS
                 }
                 for (int i = 0; i < books.Count; i++)
                 {
-                    if (brr.book.ISBN == books[i].ISBN)
+                    if (brr.lb.book.ISBN == books[i].ISBN)
                     {
-                        books[i] = brr.book;
+                        books[i] = brr.lb.book;
                     }
                 }
+                if (days_taken > brr.lb.due_date)
+                {
+                    brr.lb.user.outstanding_fines += late_fee * (days_taken - brr.lb.due_date);
+                    Console.WriteLine("the costumer has returned the book late.");
+                    Console.WriteLine(late_fee * (days_taken - brr.lb.due_date) + "  will be add as late fees for the costumer");
+                }
+                else 
+                {
+                    Console.WriteLine("the costumer has returned the book early.");
+                    Console.WriteLine("no fines calculated");
+                }
+                for(int i = 0; i < books_return_reqs.Count; i++)
+                {
+                    if (brr.id == books_return_reqs[i].id)
+                    {
+                        brr = books_return_reqs[i];
+                        break;
+                    }
+                }
+
                 books_return_reqs.Remove(brr);
                 Console.WriteLine("book returned");
-
+                
             }
             else
             {
