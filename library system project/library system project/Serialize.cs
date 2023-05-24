@@ -7,32 +7,29 @@ using System.Xml.Serialization;
 using System.IO;
 namespace library_system_project
 {
-        public class SerializeDeserialize<LDB>
+        public static class SerializeDeserialize<T>
         {
-            StringBuilder sbData;
-            StringWriter swWriter;
-            XmlDocument xDoc;
-            XmlNodeReader xNodeReader;
-            XmlSerializer xmlSerializer;
-            public SerializeDeserialize()
+            static StringBuilder sbData= new StringBuilder();
+            static StringWriter swWriter;
+            static XmlDocument xDoc;
+            static XmlNodeReader xNodeReader ;
+            static XmlSerializer xmlSerializer;
+
+            public static string SaveData(T data)
             {
-                sbData = new StringBuilder();
-            }
-            public string SaveData(LDB data)
-            {
-                XmlSerializer Serializer = new XmlSerializer(typeof(LDB));
+                XmlSerializer Serializer = new XmlSerializer(typeof(T));
                 swWriter = new StringWriter(sbData);
                 Serializer.Serialize(swWriter, data);
                 return sbData.ToString();
             }
-            public LDB LoadData(string dataXML)
+            public static T LoadData(string dataXML)
             {
                 xDoc = new XmlDocument();
                 xDoc.LoadXml(dataXML);
                 xNodeReader = new XmlNodeReader(xDoc.DocumentElement);
-                xmlSerializer = new XmlSerializer(typeof(LDB));
+                xmlSerializer = new XmlSerializer(typeof(T));
                 var Data = xmlSerializer.Deserialize(xNodeReader);
-                LDB deserializedData = (LDB)Data;
+                T deserializedData = (T)Data;
                 return deserializedData;
             }
         }

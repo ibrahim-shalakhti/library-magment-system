@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfBook xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Book>
+    <title>The Ancient Gods</title>
+    <author>gabe philps</author>
+    <ISBN>1000</ISBN>
+    <genre>History</genre>
+    <publication_year>2005</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>The Doctor Of the Poor People</title>
+    <author>joshwa dickens</author>
+    <ISBN>1003</ISBN>
+    <genre>History</genre>
+    <publication_year>2019</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>The Wise Sage</title>
+    <author>phil jonson</author>
+    <ISBN>1001</ISBN>
+    <genre>History</genre>
+    <publication_year>2000</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Karabidis, Kingdom of magic</title>
+    <author>tommas shelby</author>
+    <ISBN>1002</ISBN>
+    <genre>History</genre>
+    <publication_year>2005</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>The Rich, The Poor And the Wizard</title>
+    <author>joshwa dickens</author>
+    <ISBN>1004</ISBN>
+    <genre>History</genre>
+    <publication_year>2017</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Iris And The Beast</title>
+    <author>anas j. hamadi</author>
+    <ISBN>1005</ISBN>
+    <genre>History</genre>
+    <publication_year>2023</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Tales Of the fairy</title>
+    <author>tommas shelby</author>
+    <ISBN>1006</ISBN>
+    <genre>History</genre>
+    <publication_year>2014</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Black Leopard</title>
+    <author>joshwa dickens</author>
+    <ISBN>1007</ISBN>
+    <genre>Fantasy</genre>
+    <publication_year>2011</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>The Arabian Knights</title>
+    <author>anas j. hamadi</author>
+    <ISBN>1008</ISBN>
+    <genre>Fantasy</genre>
+    <publication_year>2005</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>The Return Of The King</title>
+    <author>phil jonson</author>
+    <ISBN>1009</ISBN>
+    <genre>Fantasy</genre>
+    <publication_year>2009</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>The Two Towers</title>
+    <author>joshwa dickens</author>
+    <ISBN>1010</ISBN>
+    <genre>Fantasy</genre>
+    <publication_year>2007</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Crystal Cave</title>
+    <author>anas j. hamadi</author>
+    <ISBN>1011</ISBN>
+    <genre>Fantasy</genre>
+    <publication_year>2008</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Dragon Cry</title>
+    <author>phil jonson</author>
+    <ISBN>1012</ISBN>
+    <genre>Fantasy</genre>
+    <publication_year>2007</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Half Blood Prince</title>
+    <author>tommas shelby</author>
+    <ISBN>1013</ISBN>
+    <genre>Fantasy</genre>
+    <publication_year>2008</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Welcome to Woodmont College</title>
+    <author>anas j. hamadi</author>
+    <ISBN>10014</ISBN>
+    <genre>Comedy</genre>
+    <publication_year>2008</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Start Without Me</title>
+    <author>phil jonson</author>
+    <ISBN>1015</ISBN>
+    <genre>Comedy</genre>
+    <publication_year>2005</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>The Worst Assistant</title>
+    <author>tommas shelby</author>
+    <ISBN>1016</ISBN>
+    <genre>Comedy</genre>
+    <publication_year>2008</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Not Funny</title>
+    <author>anas j. hamadi</author>
+    <ISBN>1017</ISBN>
+    <genre>Comedy</genre>
+    <publication_year>2007</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Jokes to Offend Men</title>
+    <author>tommas shelby</author>
+    <ISBN>1018</ISBN>
+    <genre>Comedy</genre>
+    <publication_year>2005</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+  <Book>
+    <title>Dracula</title>
+    <author>anas j. hamadi</author>
+    <ISBN>1019</ISBN>
+    <genre>Horror</genre>
+    <publication_year>2007</publication_year>
+    <on_loan>false</on_loan>
+  </Book>
+</ArrayOfBook>

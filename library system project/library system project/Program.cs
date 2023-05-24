@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using library_system_project;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -143,17 +144,30 @@ namespace LMS
             //respond_to_borrow_req();
             //print_borrow_req() ;
 
-            log_in();
-            add_borrow_req();
-            respond_to_borrow_req();
-            printBooks();
-            return_book_req();
-            return_req_approval();
-            printBooks();
-            print_borrow_req();
-            print_return_reqs();
-            pay_fines();
+            //log_in();
+            //add_borrow_req();
+            //respond_to_borrow_req();
+            //printBooks();
+            //return_book_req();
+            //return_req_approval();
+            //printBooks();
+            //print_borrow_req();
+            //print_return_reqs();
+            //pay_fines();
 
+
+            deserialize_all();
+            log_in();
+            //add_borrow_req();
+            //respond_to_borrow_req();
+            //printBooks();
+            //return_book_req();
+            //return_req_approval();
+            //printBooks();
+            //print_borrow_req();
+            //print_return_reqs();
+            pay_fines();
+            serialize_all();
 
         }
 
@@ -719,6 +733,7 @@ namespace LMS
 
             }
         }
+        //start of variables serialization and deserialization
         public static void serialize_books()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Book>));
@@ -726,8 +741,55 @@ namespace LMS
             {
                 serializer.Serialize(fileStream, books);
             }
-
-            Console.WriteLine("Books serialized to XML successfully.");
+        }
+        public static void serialize_users()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<User>));
+            using (FileStream fileStream = new FileStream("users.xml", FileMode.Create))
+            {
+                serializer.Serialize(fileStream, users);
+            }
+        }
+        public static void serialize_current_books_gens()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+            using (FileStream fileStream = new FileStream("current_books_gens.xml", FileMode.Create))
+            {
+                serializer.Serialize(fileStream, current_books_gens);
+            }
+        }
+        public static void serialize_borrowRequests()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<BorrowReq>));
+            using (FileStream fileStream = new FileStream("borrowRequests.xml", FileMode.Create))
+            {
+                serializer.Serialize(fileStream, borrowRequests);
+            }
+        }
+        public static void serialize_books_on_loan()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Loaned_books>));
+            using (FileStream fileStream = new FileStream("books_on_loan.xml", FileMode.Create))
+            {
+                serializer.Serialize(fileStream, books_on_loan);
+            }
+        }
+        public static void serialize_books_return_reqs()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Book_return_req>));
+            using (FileStream fileStream = new FileStream("books_return_reqs.xml", FileMode.Create))
+            {
+                serializer.Serialize(fileStream, books_return_reqs);
+            }
+        }
+        public static void serialize_all()
+        {
+            serialize_books();
+            serialize_books_on_loan();
+            serialize_books_return_reqs();
+            serialize_borrowRequests();
+            serialize_current_books_gens();
+            serialize_users();
         }
         public static void deserialize_books()
         {
@@ -739,6 +801,66 @@ namespace LMS
                 books = (List<Book>)serializer.Deserialize(reader);
             }
         }
+        public static void deserialize_users()
+        {
+            users = new List<User>();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<User>));
+            using (StreamReader reader = new StreamReader("users.xml"))
+            {
+                users = (List<User>)serializer.Deserialize(reader);
+            }
+        }
+        public static void deserialize_current_book_gens()
+        {
+            current_books_gens = new List<string>();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+            using (StreamReader reader = new StreamReader("current_books_gens.xml"))
+            {
+                current_books_gens = (List<string>)serializer.Deserialize(reader);
+            }
+        }
+        public static void deserialize_borrowReqests()
+        {
+            borrowRequests = new List<BorrowReq>();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<BorrowReq>));
+            using (StreamReader reader = new StreamReader("borrowRequests.xml"))
+            {
+                borrowRequests = (List<BorrowReq>)serializer.Deserialize(reader);
+            }
+        }
+        public static void deserialize_books_on_loan()
+        {
+            books_on_loan = new List<Loaned_books>();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Loaned_books>));
+            using (StreamReader reader = new StreamReader("books_on_loan.xml"))
+            {
+                books_on_loan = (List<Loaned_books>)serializer.Deserialize(reader);
+            }
+        }
+        public static void deserialize_books_return_reqs()
+        {
+            books_return_reqs = new List<Book_return_req>();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Book_return_req>));
+            using (StreamReader reader = new StreamReader("books_return_reqs.xml"))
+            {
+                books_return_reqs = (List<Book_return_req>)serializer.Deserialize(reader);
+            }
+        }
+        public static void deserialize_all()
+        {
+            deserialize_books();
+            deserialize_books_on_loan();
+            deserialize_books_return_reqs();
+            deserialize_borrowReqests();
+            deserialize_current_book_gens();
+            deserialize_users();
+        }
+        //end of serialization functions
         public static void print_books_ISBN()
         {
             Console.WriteLine("List of available book with its ISBN.");
