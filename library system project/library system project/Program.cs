@@ -12,7 +12,7 @@ namespace LMS
         public string password { get; set; }
         public string phone_number { get; set; } //contact info
         public int paid_fines { get; set; }
-        public int  outstanding_fines { get; set; }
+        public int outstanding_fines { get; set; }
         public User(string un, string pw, int m, string phone)
         {
             paid_fines= 0;
@@ -152,6 +152,7 @@ namespace LMS
             printBooks();
             print_borrow_req();
             print_return_reqs();
+            pay_fines();
 
 
         }
@@ -193,7 +194,6 @@ namespace LMS
             books.Add(new Book("Dracula", "anas j. hamadi", "Horror", 1019, false, 2007));
 
         }
-
         public static void init()
         {
             init_users();
@@ -243,7 +243,6 @@ namespace LMS
             }
 
         }
-
         public static void printBooks_by_gen()
         {
             build_list_of_gens();
@@ -907,6 +906,14 @@ namespace LMS
                     brr.lb.user.outstanding_fines += late_fee * (days_taken - brr.lb.due_date);
                     Console.WriteLine("the costumer has returned the book late.");
                     Console.WriteLine(late_fee * (days_taken - brr.lb.due_date) + "  will be add as late fees for the costumer");
+                    for (int i = 0; i < users.Count; i++)
+                    {
+                        if (users[i].username == brr.lb.user.username)
+                        {
+                            users[i] = brr.lb.user;
+                            break;
+                        }
+                    }
                 }
                 else 
                 {
@@ -921,7 +928,7 @@ namespace LMS
                         break;
                     }
                 }
-
+                
                 books_return_reqs.Remove(brr);
                 Console.WriteLine("book returned");
                 
@@ -933,7 +940,35 @@ namespace LMS
 
 
         }
+        public static void pay_fines()
+        {
+            Console.WriteLine("enter username of the costumer:");
+            string username = Console.ReadLine();
+            
+            if (users.Exists(users => users.username == username))
+            {
+                User bill = users.Find(users => users.username == username);
+                Console.WriteLine("this costumer has "+bill.outstanding_fines+" JD outstanding fines");
+                Console.WriteLine("instert ammount to be paid in numbers:");
+                int paid = int.Parse(Console.ReadLine());
+                if (paid<=bill.outstanding_fines && paid>0)
+                {
+                    bill.outstanding_fines -= paid;
+                    bill.paid_fines += paid;
+                    for(int i=0;i<users.Count;i++)
+                    {
+                        if (bill.username == users[i].username)
+                        {
+                            users[i] = bill; break;
 
+                        }
+                    }
+                    Console.WriteLine("amount paid successfuly");
+                }
+                else{ Console.WriteLine("invaild ammount you have to pay with in the outstanding ammount"); }
+            }
+            else { Console.WriteLine("costumer not found"); }
+        }
     }
     internal class Program
     {
