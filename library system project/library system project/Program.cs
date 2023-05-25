@@ -1,4 +1,4 @@
-﻿using library_system_project;
+﻿
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -14,14 +14,42 @@ namespace LMS
         public string phone_number { get; set; } //contact info
         public int paid_fines { get; set; }
         public int outstanding_fines { get; set; }
+        public List<string> notifications = new List<string>();
+        public List<string> messeges = new List<string>();
+
         public User(string un, string pw, int m, string phone)
         {
-            paid_fines= 0;
-            outstanding_fines= 0;
+            paid_fines = 0;
+            outstanding_fines = 0;
             username = un;
             password = pw;
             mode = m;
             phone_number = phone;
+        }
+
+        public User(string un, string pw, int m, string phone, List<string> n, List<string> mes)
+        {
+            paid_fines = 0;
+            outstanding_fines = 0;
+            username = un;
+            password = pw;
+            mode = m;
+            phone_number = phone;
+            if (n.Count > 0)
+            {
+                foreach (string not in n)
+                {
+                    notifications.Add(not);
+                }
+            }
+
+            if (mes.Count > 0)
+            {
+                foreach (string mese in mes)
+                {
+                    messeges.Add(mese);
+                }
+            }
         }
         public void printUser()
         {
@@ -37,6 +65,57 @@ namespace LMS
             Console.WriteLine("mode:     " + s);
             Console.WriteLine("Contact:  " + phone_number);
             System.Console.WriteLine("---------------------------------------------------");
+        }
+        public void print_standing_out_fines()
+        {
+            if (outstanding_fines > 0)
+                Console.WriteLine("You have " + outstanding_fines + " JD outstanding fines that you have to pay.");
+            else Console.WriteLine("you don't have fines to pay.");
+        }
+
+        public void print_messeges()
+        {
+            Console.WriteLine("-----------------------------------------------------------");
+            if (messeges.Count > 0)
+            {
+                foreach (string messege in messeges)
+                {
+                    Console.WriteLine(messege);
+                    Console.WriteLine("-----------------------------------------------------------");
+                }
+            }
+            else
+            {
+                Console.WriteLine("you have no messeges to read");
+                Console.WriteLine("_____________________________________________________________________");
+            }
+
+        }
+        public void print_notifications()
+        {
+            Console.WriteLine("________________________________________________________________");
+            if (notifications.Count > 0)
+            {
+                foreach (string notification in notifications)
+                {
+                    Console.WriteLine(notification);
+                    Console.WriteLine("____________________________________________________________________________");
+                }
+            }
+            else
+            {
+                Console.WriteLine("you have no notifications");
+                Console.WriteLine("____________________________________________________________________________");
+            }
+        }
+
+        public void print_fines()
+        {
+
+            Console.WriteLine("user " + username);
+            Console.WriteLine("paid fines:        " + paid_fines + " JD.");
+            Console.WriteLine("outstanding fines: " + outstanding_fines + " JD.");
+            Console.WriteLine("____________________________________________________");
         }
     }
 
@@ -110,7 +189,7 @@ namespace LMS
         public static List<Loaned_books> books_on_loan = new List<Loaned_books>();
         public static List<Book_return_req> books_return_reqs = new List<Book_return_req>();
 
-        public static int req_id = 0, books_return_req_id = 0,late_fee=100;
+        public static int req_id = 0, books_return_req_id = 0, late_fee = 100;
 
 
         public static void unit_testing()
@@ -156,8 +235,8 @@ namespace LMS
             //pay_fines();
 
 
-            deserialize_all();
-            log_in();
+            //deserialize_all();
+            //log_in();
             //add_borrow_req();
             //respond_to_borrow_req();
             //printBooks();
@@ -166,8 +245,11 @@ namespace LMS
             //printBooks();
             //print_borrow_req();
             //print_return_reqs();
-            pay_fines();
-            serialize_all();
+            //pay_fines();
+            //serialize_all();
+
+
+            main_screen();
 
         }
 
@@ -288,7 +370,7 @@ namespace LMS
             foreach (Book book in books)
             {
 
-                if (book.author.ToLower() == by_title.ToLower())
+                if (book.title.ToLower() == by_title.ToLower())
                 {
                     book.printBook();
                     count++;
@@ -427,6 +509,7 @@ namespace LMS
                 books.Add(new Book(t, a, g, i, false, p));
                 Console.WriteLine("Book added to the library.");
                 build_list_of_gens();
+                add_notification_to_patrons(t);
             }
             Console.WriteLine("_______________________________________________");
         }
@@ -467,10 +550,12 @@ namespace LMS
                 if (!username_found)
                 {
                     Console.WriteLine("Username is not registered. please register or choose different account");
+                    main_screen();
                 }
                 else if (!password_found)
                 {
                     Console.WriteLine("Incorrect password.");
+                    main_screen();
                 }
                 else if (logged_in)
                 {
@@ -478,7 +563,10 @@ namespace LMS
                     Console.WriteLine("______________________________________");
                 }
             }
-            else if (l == "2") { }
+            else if (l == "2")
+            {
+                main_screen();
+            }
             else
             {
                 Console.WriteLine("Invalid input, please try again");
@@ -782,6 +870,22 @@ namespace LMS
                 serializer.Serialize(fileStream, books_return_reqs);
             }
         }
+        public static void serialize_books_return_req_id()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(int));
+            using (FileStream fileStream = new FileStream("books_return_req_id.xml", FileMode.Create))
+            {
+                serializer.Serialize(fileStream, books_return_req_id);
+            }
+        }
+        public static void serialize_req_id()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(int));
+            using (FileStream fileStream = new FileStream("req_id.xml", FileMode.Create))
+            {
+                serializer.Serialize(fileStream, req_id);
+            }
+        }
         public static void serialize_all()
         {
             serialize_books();
@@ -790,6 +894,8 @@ namespace LMS
             serialize_borrowRequests();
             serialize_current_books_gens();
             serialize_users();
+            serialize_req_id();
+            serialize_books_return_req_id();
         }
         public static void deserialize_books()
         {
@@ -851,6 +957,26 @@ namespace LMS
                 books_return_reqs = (List<Book_return_req>)serializer.Deserialize(reader);
             }
         }
+        public static void deserialize_books_return_req_id()
+        {
+            books_return_req_id = new int();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(int));
+            using (StreamReader reader = new StreamReader("books_return_req_id.xml"))
+            {
+                books_return_req_id = (int)serializer.Deserialize(reader);
+            }
+        }
+        public static void deserialize_req_id()
+        {
+            req_id = new int();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(int));
+            using (StreamReader reader = new StreamReader("req_id.xml"))
+            {
+                req_id = (int)serializer.Deserialize(reader);
+            }
+        }
         public static void deserialize_all()
         {
             deserialize_books();
@@ -859,6 +985,8 @@ namespace LMS
             deserialize_borrowReqests();
             deserialize_current_book_gens();
             deserialize_users();
+            deserialize_books_return_req_id();
+            deserialize_req_id();
         }
         //end of serialization functions
         public static void print_books_ISBN()
@@ -992,7 +1120,7 @@ namespace LMS
         {
             foreach (Book_return_req brr in books_return_reqs)
             {
-                Console.WriteLine("ID:"+brr.id+"-  customer " + brr.lb.user.username + " wants to return book:      =>     " + brr.lb.book.ISBN + "   " + brr.lb.book.title);
+                Console.WriteLine("ID:" + brr.id + "-  customer " + brr.lb.user.username + " wants to return book:      =>     " + brr.lb.book.ISBN + "   " + brr.lb.book.title);
             }
 
         }
@@ -1020,6 +1148,8 @@ namespace LMS
                 {
                     if (brr.lb.book.ISBN == books[i].ISBN)
                     {
+                        brr.lb.book.on_loan = false;
+                        add_notification_to_patrons(brr.lb.book.title);
                         books[i] = brr.lb.book;
                     }
                 }
@@ -1037,12 +1167,12 @@ namespace LMS
                         }
                     }
                 }
-                else 
+                else
                 {
                     Console.WriteLine("the costumer has returned the book early.");
                     Console.WriteLine("no fines calculated");
                 }
-                for(int i = 0; i < books_return_reqs.Count; i++)
+                for (int i = 0; i < books_return_reqs.Count; i++)
                 {
                     if (brr.id == books_return_reqs[i].id)
                     {
@@ -1050,10 +1180,10 @@ namespace LMS
                         break;
                     }
                 }
-                
+
                 books_return_reqs.Remove(brr);
                 Console.WriteLine("book returned");
-                
+
             }
             else
             {
@@ -1066,18 +1196,18 @@ namespace LMS
         {
             Console.WriteLine("enter username of the costumer:");
             string username = Console.ReadLine();
-            
+
             if (users.Exists(users => users.username == username))
             {
                 User bill = users.Find(users => users.username == username);
-                Console.WriteLine("this costumer has "+bill.outstanding_fines+" JD outstanding fines");
+                Console.WriteLine("this costumer has " + bill.outstanding_fines + " JD outstanding fines");
                 Console.WriteLine("instert ammount to be paid in numbers:");
                 int paid = int.Parse(Console.ReadLine());
-                if (paid<=bill.outstanding_fines && paid>0)
+                if (paid <= bill.outstanding_fines && paid > 0)
                 {
                     bill.outstanding_fines -= paid;
                     bill.paid_fines += paid;
-                    for(int i=0;i<users.Count;i++)
+                    for (int i = 0; i < users.Count; i++)
                     {
                         if (bill.username == users[i].username)
                         {
@@ -1087,19 +1217,280 @@ namespace LMS
                     }
                     Console.WriteLine("amount paid successfuly");
                 }
-                else{ Console.WriteLine("invaild ammount you have to pay with in the outstanding ammount"); }
+                else { Console.WriteLine("invaild ammount you have to pay with in the outstanding ammount"); }
             }
             else { Console.WriteLine("costumer not found"); }
         }
+
+        public static void list_books_loaned_by_user()
+        {
+            foreach (Loaned_books lb in books_on_loan)
+            {
+                if (lb.user.username == logged_in_account.username)
+                {
+                    lb.book.printBook();
+                }
+            }
+        }
+
+        public static void send_messege_to_user()
+        {
+            Console.WriteLine("______________________________________________________________________________________________");
+            Console.WriteLine("Please enter the name of the patron you want to sent him messege.");
+            string usertosend = Console.ReadLine() + "";
+            Console.WriteLine("Please enter the messege.");
+            string messege = Console.ReadLine() + "";
+            bool usertosend_found = false;
+            foreach (User user in users)
+            {
+                if (user.username == usertosend)
+                {
+                    usertosend_found = true;
+                    if (user.mode == 2)
+                    {
+                        user.messeges.Add("messege by librarian " + logged_in_account.username + ".\n" + messege);
+                        Console.WriteLine("messege sent to user " + usertosend + " .");
+                    }
+                    else
+                    {
+                        Console.WriteLine("you can only send messeges to patrons");
+                    }
+                    break;
+                }
+
+
+            }
+            if (!usertosend_found)
+            {
+                Console.WriteLine("user not found.");
+            }
+        }
+
+        public static void delete_book()
+        {
+            Console.WriteLine("please enter book ISBN to delete");
+            int book_isbn = int.Parse(Console.ReadLine());
+            bool book_isbn_found = false;
+            for (int i = 0; i < books.Count; i++)
+            {
+                if (book_isbn == books[i].ISBN)
+                {
+                    book_isbn_found = true;
+                    if (books[i].on_loan)
+                    {
+                        Console.WriteLine("can't be deleted because the book is loaned.");
+
+                    }
+                    else
+                    {
+                        books.Remove(books[i]);
+                        Console.WriteLine("book deleted.");
+
+                    }
+                    break;
+                }
+            }
+        }
+
+        public static void fines_report()
+        {
+            Console.WriteLine("fines for patrons");
+            Console.WriteLine("_____________________________________________");
+            foreach (User user in users)
+            {
+                if (user.mode == 2)
+                {
+                    user.print_fines();
+                }
+            }
+
+        }
+
+        public static void add_notification_to_patrons(string book_name)
+        {
+            foreach (User user in users)
+            {
+                if (user.mode == 2)
+                {
+                    user.notifications.Add("the book " + book_name + " is now available in the library to be loaned.");
+                }
+            }
+        }
+        //program screens
+        public static void main_screen()
+        {
+            Console.WriteLine("Welcome to our library management system.");
+            Console.WriteLine("Please Choose from the menu bellow what you want to do.");
+            Console.WriteLine("_________________________________________________________________________");
+            Console.WriteLine("Enter 1 to log in.");
+            Console.WriteLine("Enter 2 to register.");
+            int choice = int.Parse(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    deserialize_all();
+                    log_in();
+                    if (logged_in_account.username != "")
+                    {
+                        if (logged_in_account.mode == 0)
+                        {
+                            admin_screen();
+                        }
+                        else if (logged_in_account.mode == 1)
+                        {
+                            librarian_screen();
+                        }
+                        else if (logged_in_account.mode == 2)
+                        {
+                            patron_screen();
+                        }
+                    }
+                    break;
+                case 2:
+                    add_new_user();
+                    break;
+            }
+
+        }
+        public static void patron_screen()
+        {
+            while (true)
+            {
+                Console.WriteLine("_____________________________________________________");
+                Console.WriteLine("Please enter a choice.");
+                Console.WriteLine("1: request borrow book.");
+                Console.WriteLine("2: request return book.");
+                Console.WriteLine("3: search for books.");
+                Console.WriteLine("4: log_out.");
+                Console.WriteLine("5: list the books you have loaned.");
+                Console.WriteLine("6: print how much fines you have to pay.");
+                Console.WriteLine("7: read your messeges.");
+                Console.WriteLine("8: read notifications");
+
+
+                int choice = int.Parse(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1:
+                        add_borrow_req(); serialize_borrowRequests(); break;
+                    case 2: return_book_req(); serialize_books_return_reqs(); break;
+                    case 3: search_book_screen(); break;
+                    case 4:
+                        log_out();
+                        serialize_all();
+                        main_screen();
+                        break;
+                    case 5: list_books_loaned_by_user(); break;
+                    case 6: logged_in_account.print_standing_out_fines(); break;
+                    case 7: logged_in_account.print_messeges(); break;
+                    case 8: logged_in_account.print_notifications(); break;
+
+
+
+                }
+
+
+            }
+
+        }
+        public static void librarian_screen()
+        {
+            while (true)
+            {
+                Console.WriteLine("_____________________________________________");
+                Console.WriteLine("Please enter option.");
+                Console.WriteLine("1: respond to borrow requests.");
+                Console.WriteLine("2: respond to return requests.");
+                Console.WriteLine("3: print borrow requests.");
+                Console.WriteLine("4: print return requests.");
+                Console.WriteLine("5: paying fines (customer wants to pay fine).");
+                Console.WriteLine("6: search books.");
+                Console.WriteLine("7: add new book.");
+                Console.WriteLine("8: delete a book.");
+                Console.WriteLine("9: log_out.");
+                Console.WriteLine("10: send messege to a patron.");
+                Console.WriteLine("11: generate report on users fines and outstanding payments.");
+
+                int choice = int.Parse(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1: respond_to_borrow_req(); serialize_all(); break;
+                    case 2: return_req_approval(); serialize_all(); break;
+                    case 3: print_borrow_req(); serialize_all(); break;
+                    case 4: print_return_reqs(); break;
+                    case 5: pay_fines();serialize_users(); break;
+                    case 6: search_book_screen(); break;
+                    case 7: add_new_book();serialize_books(); break;
+                    case 8: delete_book();serialize_books(); break;
+                    case 9: log_out(); serialize_all(); main_screen(); break;
+                    case 10: send_messege_to_user(); serialize_users(); break;
+                    case 11: fines_report(); break;
+
+
+                }
+            }
+        }
+
+        public static void admin_screen()
+        {
+            while (true)
+            {
+                Console.WriteLine("_____________________________________________");
+                Console.WriteLine("Please enter option.");
+                Console.WriteLine("1: print all users and their information.");
+                Console.WriteLine("2: add new user.");
+                Console.WriteLine("3: delete user.");
+                Console.WriteLine("4: modify user.");
+                Console.WriteLine("5: generate report on library.");
+                Console.WriteLine("6: generate report on users fines and outstanding payments.");
+                Console.WriteLine("7: log_out.");
+
+                int choice = int.Parse(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1: printUsers(); break;
+                    case 2: admin_adding_user(); serialize_users(); break;
+                    case 3: admin_del_user(); serialize_users(); break;
+                    case 4: admin_modfy_user();serialize_users(); break;
+                    case 5: library_report(); break;
+                    case 6: fines_report(); break;
+                    case 7: log_out(); serialize_all(); main_screen(); break;
+
+
+
+                }
+            }
+        }
+
+        public static void search_book_screen()
+        {
+            Console.WriteLine("_____________________________________");
+            Console.WriteLine("Please enter how do you want to search for books.");
+            Console.WriteLine("1: search by title or name.");
+            Console.WriteLine("2: search by ISBN.");
+            Console.WriteLine("3: search by author.");
+            Console.WriteLine("4: search by genre.");
+            int choice = int.Parse(Console.ReadLine());
+            switch (choice)
+            {
+                case 1: printBooks_by_title(); break;
+                case 2: printBooks_by_isbn(); break;
+                case 3: printBooks_by_a(); break;
+                case 4: printBooks_by_gen(); break;
+            }
+        }
+
     }
     internal class Program
     {
 
         static void Main(string[] args)
         {
+            
             LDB.init();
 
-            LDB.unit_testing();
+            //LDB.unit_testing();
+            LDB.main_screen();
 
 
         }
