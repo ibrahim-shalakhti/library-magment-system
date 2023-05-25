@@ -1421,8 +1421,8 @@ namespace LMS
                 switch (choice)
                 {
                     case 1:
-                        add_borrow_req(); serialize_borrowRequests(); break;
-                    case 2: return_book_req(); serialize_books_return_reqs(); break;
+                        add_borrow_req(); serialize_all(); break;
+                    case 2: return_book_req(); serialize_all(); break;
                     case 3: search_book_screen(); break;
                     case 4:
                         log_out();
@@ -1467,12 +1467,12 @@ namespace LMS
                     case 2: return_req_approval(); serialize_all(); break;
                     case 3: print_borrow_req(); serialize_all(); break;
                     case 4: print_return_reqs(); break;
-                    case 5: pay_fines();serialize_users(); break;
+                    case 5: pay_fines();serialize_all(); break;
                     case 6: search_book_screen(); break;
                     case 7: add_new_book();serialize_books(); break;
                     case 8: delete_book();serialize_books(); break;
                     case 9: log_out(); serialize_all(); main_screen(); break;
-                    case 10: send_messege_to_user(); serialize_users(); break;
+                    case 10: send_messege_to_user(); serialize_all(); break;
                     case 11: fines_report(); break;
 
 
@@ -1498,9 +1498,9 @@ namespace LMS
                 switch (choice)
                 {
                     case 1: printUsers(); break;
-                    case 2: admin_adding_user(); serialize_users(); break;
-                    case 3: admin_del_user(); serialize_users(); break;
-                    case 4: admin_modfy_user();serialize_users(); break;
+                    case 2: admin_adding_user(); serialize_all(); break;
+                    case 3: admin_del_user(); serialize_all(); break;
+                    case 4: admin_modfy_user();serialize_all(); break;
                     case 5: library_report(); break;
                     case 6: fines_report(); break;
                     case 7: log_out(); serialize_all(); main_screen(); break;
