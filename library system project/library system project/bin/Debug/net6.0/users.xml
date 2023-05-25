@@ -31,10 +31,7 @@
     <outstanding_fines>0</outstanding_fines>
   </User>
   <User>
-    <notifications>
-      <string>the book Dracula is now available in the library to be loaned.</string>
-      <string>the book Not Funny is now available in the library to be loaned.</string>
-    </notifications>
+    <notifications />
     <messeges />
     <username>baha</username>
     <mode>2</mode>
@@ -44,10 +41,7 @@
     <outstanding_fines>0</outstanding_fines>
   </User>
   <User>
-    <notifications>
-      <string>the book Dracula is now available in the library to be loaned.</string>
-      <string>the book Not Funny is now available in the library to be loaned.</string>
-    </notifications>
+    <notifications />
     <messeges />
     <username>bayan</username>
     <mode>2</mode>
@@ -57,10 +51,7 @@
     <outstanding_fines>0</outstanding_fines>
   </User>
   <User>
-    <notifications>
-      <string>the book Dracula is now available in the library to be loaned.</string>
-      <string>the book Not Funny is now available in the library to be loaned.</string>
-    </notifications>
+    <notifications />
     <messeges />
     <username>ahmad</username>
     <mode>2</mode>
@@ -70,10 +61,7 @@
     <outstanding_fines>0</outstanding_fines>
   </User>
   <User>
-    <notifications>
-      <string>the book Dracula is now available in the library to be loaned.</string>
-      <string>the book Not Funny is now available in the library to be loaned.</string>
-    </notifications>
+    <notifications />
     <messeges />
     <username>yousef</username>
     <mode>2</mode>

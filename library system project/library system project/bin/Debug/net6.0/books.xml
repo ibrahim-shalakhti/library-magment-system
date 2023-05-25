@@ -7,6 +7,7 @@
     <genre>History</genre>
     <publication_year>2005</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>The Doctor Of the Poor People</title>
@@ -15,6 +16,7 @@
     <genre>History</genre>
     <publication_year>2019</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>The Wise Sage</title>
@@ -23,6 +25,7 @@
     <genre>History</genre>
     <publication_year>2000</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Karabidis, Kingdom of magic</title>
@@ -31,6 +34,7 @@
     <genre>History</genre>
     <publication_year>2005</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>The Rich, The Poor And the Wizard</title>
@@ -39,6 +43,7 @@
     <genre>History</genre>
     <publication_year>2017</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Iris And The Beast</title>
@@ -47,6 +52,7 @@
     <genre>History</genre>
     <publication_year>2023</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Tales Of the fairy</title>
@@ -55,6 +61,7 @@
     <genre>History</genre>
     <publication_year>2014</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Black Leopard</title>
@@ -63,6 +70,7 @@
     <genre>Fantasy</genre>
     <publication_year>2011</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>The Arabian Knights</title>
@@ -71,6 +79,7 @@
     <genre>Fantasy</genre>
     <publication_year>2005</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>The Return Of The King</title>
@@ -79,6 +88,7 @@
     <genre>Fantasy</genre>
     <publication_year>2009</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>The Two Towers</title>
@@ -87,6 +97,7 @@
     <genre>Fantasy</genre>
     <publication_year>2007</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Crystal Cave</title>
@@ -95,6 +106,7 @@
     <genre>Fantasy</genre>
     <publication_year>2008</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Dragon Cry</title>
@@ -103,6 +115,7 @@
     <genre>Fantasy</genre>
     <publication_year>2007</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Half Blood Prince</title>
@@ -111,6 +124,7 @@
     <genre>Fantasy</genre>
     <publication_year>2008</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Welcome to Woodmont College</title>
@@ -119,6 +133,7 @@
     <genre>Comedy</genre>
     <publication_year>2008</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Start Without Me</title>
@@ -127,6 +142,7 @@
     <genre>Comedy</genre>
     <publication_year>2005</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>The Worst Assistant</title>
@@ -135,6 +151,7 @@
     <genre>Comedy</genre>
     <publication_year>2008</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Not Funny</title>
@@ -143,6 +160,7 @@
     <genre>Comedy</genre>
     <publication_year>2007</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Jokes to Offend Men</title>
@@ -151,6 +169,7 @@
     <genre>Comedy</genre>
     <publication_year>2005</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
   <Book>
     <title>Dracula</title>
@@ -159,5 +178,6 @@
     <genre>Horror</genre>
     <publication_year>2007</publication_year>
     <on_loan>false</on_loan>
+    <on_req>false</on_req>
   </Book>
 </ArrayOfBook>

@@ -127,10 +127,11 @@ namespace LMS
         public string genre { get; set; }
         public int publication_year { get; set; }
         public bool on_loan { get; set; }
-
+        public bool on_req {get; set;}
 
         public Book(string t, string a, string g, int I, Boolean o, int p)
         {
+            on_req = false;
             title = t;
             author = a;
             ISBN = I;
@@ -1026,11 +1027,28 @@ namespace LMS
             Book book = books.Find(book => book.ISBN == isbn);
             if (books.Exists(book => book.ISBN == isbn))
             {
-                req_id++;
-                req.book = book;
-                req.user = logged_in_account;
-                req.id = req_id;
-                borrowRequests.Add(req);
+                if (book.on_req == true)
+                {
+                    Console.WriteLine("cant request this book because another user requested it");
+                }
+                else
+                {
+
+                    req_id++;
+                    req.book = book;
+                    req.user = logged_in_account;
+                    req.id = req_id;
+                    req.book.on_req = true;
+                    borrowRequests.Add(req);
+                    for (int i = 0; i < books.Count; i++)
+                    {
+                        if (req.book.ISBN == books[i].ISBN)
+                        {
+                            req.book.on_req = true;
+                            books[i] = req.book; break;
+                        }
+                    }
+                }
             }
             else
             {
@@ -1067,6 +1085,7 @@ namespace LMS
                     {
                         if (r.book.ISBN == books[i].ISBN)
                         {
+                            r.book.on_req = false;
                             books[i] = r.book; break;
                         }
                     }
@@ -1080,6 +1099,14 @@ namespace LMS
                     books_on_loan.Add(lb);
 
 
+                }
+                for (int i = 0; i < books.Count; i++)
+                {
+                    if (r.book.ISBN == books[i].ISBN)
+                    {
+                        r.book.on_req = false;
+                        books[i] = r.book; break;
+                    }
                 }
                 for (int i = 0; i < borrowRequests.Count; i++)
                 {
