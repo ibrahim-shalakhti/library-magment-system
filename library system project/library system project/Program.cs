@@ -252,6 +252,21 @@ namespace LMS
             main_screen();
 
         }
+        public static int exeption()
+        {
+            int x = 0;
+            try
+            {
+                x = int.Parse(Console.ReadLine());
+                return x;
+            }
+            catch
+            {
+                Console.WriteLine("invaild input. please enter an intger");
+                return exeption();
+            }
+
+        }
 
         public LDB()
         {
@@ -404,7 +419,7 @@ namespace LMS
         public static void printBooks_by_isbn()
         {
             Console.WriteLine("Enter ISBN:");
-            int i = int.Parse(Console.ReadLine());
+            int i = exeption();
             System.Console.WriteLine("---------------------------------------------------");
             int count = 0;
             foreach (Book book in books)
@@ -473,9 +488,9 @@ namespace LMS
             Console.WriteLine("Please enter author name...");
             string a = Console.ReadLine() + "";
             Console.WriteLine("Please enter ISBN...");
-            int i = int.Parse(Console.ReadLine());
+            int i = exeption();
             Console.WriteLine("Please enter publication year...");
-            int p = int.Parse(Console.ReadLine());
+            int p = exeption();
             Console.WriteLine("Please enter genre...");
             string g = Console.ReadLine() + "";
             Console.WriteLine("_____________________________________________");
@@ -639,7 +654,7 @@ namespace LMS
             System.Console.WriteLine("Please Enter user mode...");
             System.Console.WriteLine("Please Enter 2 for customer mode...");
             System.Console.WriteLine("Please Enter 1 librarian mode...");
-            int m = int.Parse(Console.ReadLine());
+            int m = exeption();
             bool pass_conflict = false, user_conflict = false;
             foreach (User user in users)
             {
@@ -1007,7 +1022,7 @@ namespace LMS
             BorrowReq req = new BorrowReq();
             print_books_ISBN();
             Console.WriteLine("Please enter the ISBN of the book you want to request.");
-            int isbn = int.Parse(Console.ReadLine());
+            int isbn = exeption();
             Book book = books.Find(book => book.ISBN == isbn);
             if (books.Exists(book => book.ISBN == isbn))
             {
@@ -1035,7 +1050,7 @@ namespace LMS
             print_borrow_req();
             Console.WriteLine("__________________________________________________");
             Console.WriteLine("Please enter the id of the request you want to respond to....");
-            int req_id = int.Parse(Console.ReadLine());
+            int req_id = exeption();
             BorrowReq r = borrowRequests.Find(borrowreq => borrowreq.id == req_id);
             if (borrowRequests.Exists(borrowreq => borrowreq.id == req_id))
             {
@@ -1045,7 +1060,7 @@ namespace LMS
                 {
                     Console.WriteLine("Please enter the due date of the book return in the form of how many days can this user have this book.");
                     Console.WriteLine("Please enter the days as integer number.");
-                    int days = int.Parse(Console.ReadLine());
+                    int days = exeption();
                     r.date = days;
                     r.book.on_loan = true;
                     for (int i = 0; i < books.Count; i++)
@@ -1097,7 +1112,7 @@ namespace LMS
                 Console.WriteLine("what book do you want to return?");
                 Console.WriteLine("Please enter the ISBN of one of the above books");
                 Console.WriteLine("_______________________________________________________");
-                int isbn = int.Parse(Console.ReadLine());
+                int isbn = exeption();
                 Book_return_req book_Return_Req = new Book_return_req();
                 book_Return_Req.lb = books_on_loan.Find(books_on_loan => books_on_loan.book.ISBN == isbn);
 
@@ -1128,14 +1143,14 @@ namespace LMS
         {
             print_return_reqs();
             Console.WriteLine("please enter return request id ....");
-            int id = int.Parse(Console.ReadLine());
+            int id = exeption();
             Book_return_req brr = books_return_reqs.Find(brr => brr.id == id);
             if (books_return_reqs.Exists(brr => brr.id == id))
             {
                 brr.lb.book.on_loan = false;
                 int days_taken;
                 Console.WriteLine("please enter how many days the book have been taken...");
-                days_taken = int.Parse(Console.ReadLine());
+                days_taken = exeption();
                 for (int i = 0; i < books_return_reqs.Count; i++)
                 {
                     if (id == books_return_reqs[i].id)
@@ -1202,7 +1217,7 @@ namespace LMS
                 User bill = users.Find(users => users.username == username);
                 Console.WriteLine("this costumer has " + bill.outstanding_fines + " JD outstanding fines");
                 Console.WriteLine("instert ammount to be paid in numbers:");
-                int paid = int.Parse(Console.ReadLine());
+                int paid = exeption();
                 if (paid <= bill.outstanding_fines && paid > 0)
                 {
                     bill.outstanding_fines -= paid;
@@ -1269,7 +1284,7 @@ namespace LMS
         public static void delete_book()
         {
             Console.WriteLine("please enter book ISBN to delete");
-            int book_isbn = int.Parse(Console.ReadLine());
+            int book_isbn = exeption();
             bool book_isbn_found = false;
             for (int i = 0; i < books.Count; i++)
             {
@@ -1289,6 +1304,11 @@ namespace LMS
                     }
                     break;
                 }
+            }
+            if (book_isbn_found == false)
+            {
+                Console.WriteLine("book not found ");
+                    delete_book();
             }
         }
 
@@ -1324,7 +1344,7 @@ namespace LMS
             Console.WriteLine("_________________________________________________________________________");
             Console.WriteLine("Enter 1 to log in.");
             Console.WriteLine("Enter 2 to register.");
-            int choice = int.Parse(Console.ReadLine());
+            int choice = exeption();
             switch (choice)
             {
                 case 1:
@@ -1368,7 +1388,7 @@ namespace LMS
                 Console.WriteLine("8: read notifications");
 
 
-                int choice = int.Parse(Console.ReadLine());
+                int choice = exeption();
                 switch (choice)
                 {
                     case 1:
@@ -1411,7 +1431,7 @@ namespace LMS
                 Console.WriteLine("10: send messege to a patron.");
                 Console.WriteLine("11: generate report on users fines and outstanding payments.");
 
-                int choice = int.Parse(Console.ReadLine());
+                int choice = exeption();
                 switch (choice)
                 {
                     case 1: respond_to_borrow_req(); serialize_all(); break;
@@ -1444,8 +1464,8 @@ namespace LMS
                 Console.WriteLine("5: generate report on library.");
                 Console.WriteLine("6: generate report on users fines and outstanding payments.");
                 Console.WriteLine("7: log_out.");
-
-                int choice = int.Parse(Console.ReadLine());
+                    
+                int choice = exeption();
                 switch (choice)
                 {
                     case 1: printUsers(); break;
@@ -1470,7 +1490,7 @@ namespace LMS
             Console.WriteLine("2: search by ISBN.");
             Console.WriteLine("3: search by author.");
             Console.WriteLine("4: search by genre.");
-            int choice = int.Parse(Console.ReadLine());
+            int choice = exeption();
             switch (choice)
             {
                 case 1: printBooks_by_title(); break;
