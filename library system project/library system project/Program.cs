@@ -1395,6 +1395,8 @@ namespace LMS
                     break;
                 case 2:
                     add_new_user();
+                    serialize_all();
+                    main_screen();
                     break;
             }
 
