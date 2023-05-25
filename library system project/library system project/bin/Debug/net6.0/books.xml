@@ -7,7 +7,7 @@
     <genre>History</genre>
     <publication_year>2005</publication_year>
     <on_loan>false</on_loan>
-    <on_req>false</on_req>
+    <on_req>true</on_req>
   </Book>
   <Book>
     <title>The Doctor Of the Poor People</title>

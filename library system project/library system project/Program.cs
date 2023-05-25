@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Xml.Serialization;
 
 namespace LMS
@@ -439,12 +440,15 @@ namespace LMS
         }
         public static void add_new_user()
         {
+            Console.Clear();
             System.Console.WriteLine("Please Enter Your User Name...");
             string UN = Console.ReadLine() + "";
             System.Console.WriteLine("Please Enter Your Password...");
             string PW = Console.ReadLine() + "";
             System.Console.WriteLine("Please Enter Your Phone Number...");
             string ph = Console.ReadLine() + "";
+            bool isValid = PhoneNumberIsValid(ph);
+            if (isValid) ;                                                                    /////////////////////////////////////////////////////////////////////function needed
             bool pass_conflict = false, user_conflict = false;
             foreach (User user in users)
             {
@@ -481,8 +485,34 @@ namespace LMS
             }
 
         }
+        public static bool PhoneNumberIsValid(string num)
+        {
+            bool flag = true;
+            if (num.Length != 10)
+            {
+                Console.Write("Phone number must be exactly 10 digits");
+                flag = false;
+                return flag;
+            }
+            for (int i = 0; i < num.Length; i++)
+            {
+                if (num[i] < 48 || num[i] > 57)
+                {
+
+                    flag = false;
+                    break;
+
+                }
+                else
+                    continue;
+            }
+            return flag;
+
+        }
+
         public static void add_new_book()
         {
+            Console.Clear();
             Console.WriteLine("Adding a new book...");
             Console.WriteLine("Please enter title of new book...");
             string t = Console.ReadLine() + "";
@@ -598,6 +628,7 @@ namespace LMS
         }
         public static void printBooks_by_gen(string g)
         {
+            Console.Clear();
             string by_gen = g;
             System.Console.WriteLine("---------------------------------------------------");
             foreach (Book book in books)
@@ -613,6 +644,7 @@ namespace LMS
         }
         public static void library_report()
         {
+            Console.Clear();
             Console.WriteLine("__________________________________");
             Console.WriteLine("    Library report generator");
             Console.WriteLine("__________________________________");
@@ -646,6 +678,7 @@ namespace LMS
         }
         public static void admin_adding_user()
         {
+            Console.Clear();
             System.Console.WriteLine("Please Enter User Name to add...");
             string UN = Console.ReadLine() + "";
             System.Console.WriteLine("Please Enter Password...");
@@ -693,6 +726,7 @@ namespace LMS
         }
         public static void admin_del_user()
         {
+            Console.Clear();
             Console.WriteLine("please enter username you want to delete....");
             string un = Console.ReadLine() + "";
             bool un_found = false;
@@ -719,6 +753,7 @@ namespace LMS
         }
         public static void admin_modfy_user()
         {
+            Console.Clear();
             Console.WriteLine("do you want to modify a user?");
             Console.WriteLine("Please enter yes or no....");
             string s = Console.ReadLine() + "";
@@ -1007,6 +1042,7 @@ namespace LMS
         //end of serialization functions
         public static void print_books_ISBN()
         {
+            Console.Clear();
             Console.WriteLine("List of available book with its ISBN.");
             Console.WriteLine("_______________________________________");
 
@@ -1020,6 +1056,7 @@ namespace LMS
         }
         public static void add_borrow_req()
         {
+            Console.Clear();
             BorrowReq req = new BorrowReq();
             print_books_ISBN();
             Console.WriteLine("Please enter the ISBN of the book you want to request.");
@@ -1057,6 +1094,7 @@ namespace LMS
         }
         public static void print_borrow_req()
         {
+            Console.Clear();
             foreach (BorrowReq r in borrowRequests)
             {
                 Console.WriteLine("request_id " + r.id + " | user " + r.user.username + " requests " + r.book.title);
@@ -1065,6 +1103,7 @@ namespace LMS
         }
         public static void respond_to_borrow_req()
         {
+            Console.Clear();
             print_borrow_req();
             Console.WriteLine("__________________________________________________");
             Console.WriteLine("Please enter the id of the request you want to respond to....");
@@ -1125,6 +1164,7 @@ namespace LMS
         }
         public static void return_book_req()
         {
+            Console.Clear();
             int count = 0;
             foreach (Loaned_books lb in books_on_loan)
             {
@@ -1166,6 +1206,7 @@ namespace LMS
         }
         public static void print_return_reqs()
         {
+            Console.Clear();
             foreach (Book_return_req brr in books_return_reqs)
             {
                 Console.WriteLine("ID:" + brr.id + "-  customer " + brr.lb.user.username + " wants to return book:      =>     " + brr.lb.book.ISBN + "   " + brr.lb.book.title);
@@ -1174,6 +1215,7 @@ namespace LMS
         }
         public static void return_req_approval()
         {
+            Console.Clear();
             print_return_reqs();
             Console.WriteLine("please enter return request id ....");
             int id = exeption();
@@ -1242,6 +1284,7 @@ namespace LMS
         }
         public static void pay_fines()
         {
+            Console.Clear();
             Console.WriteLine("enter username of the costumer:");
             string username = Console.ReadLine();
 
@@ -1272,6 +1315,7 @@ namespace LMS
 
         public static void list_books_loaned_by_user()
         {
+            Console.Clear();
             foreach (Loaned_books lb in books_on_loan)
             {
                 if (lb.user.username == logged_in_account.username)
@@ -1283,6 +1327,7 @@ namespace LMS
 
         public static void send_messege_to_user()
         {
+            Console.Clear();
             Console.WriteLine("______________________________________________________________________________________________");
             Console.WriteLine("Please enter the name of the patron you want to sent him messege.");
             string usertosend = Console.ReadLine() + "";
@@ -1316,6 +1361,7 @@ namespace LMS
 
         public static void delete_book()
         {
+            Console.Clear();
             Console.WriteLine("please enter book ISBN to delete");
             int book_isbn = exeption();
             bool book_isbn_found = false;
@@ -1347,6 +1393,7 @@ namespace LMS
 
         public static void fines_report()
         {
+            Console.Clear();
             Console.WriteLine("fines for patrons");
             Console.WriteLine("_____________________________________________");
             foreach (User user in users)
@@ -1361,6 +1408,7 @@ namespace LMS
 
         public static void add_notification_to_patrons(string book_name)
         {
+            Console.Clear();
             foreach (User user in users)
             {
                 if (user.mode == 2)
@@ -1372,6 +1420,7 @@ namespace LMS
         //program screens
         public static void main_screen()
         {
+            
             Console.WriteLine("Welcome to our library management system.");
             Console.WriteLine("Please Choose from the menu bellow what you want to do.");
             Console.WriteLine("_________________________________________________________________________");
