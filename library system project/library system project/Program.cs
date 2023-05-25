@@ -127,7 +127,7 @@ namespace LMS
         public string genre { get; set; }
         public int publication_year { get; set; }
         public bool on_loan { get; set; }
-        public bool on_req {get; set;}
+        public bool on_req { get; set; }
 
         public Book(string t, string a, string g, int I, Boolean o, int p)
         {
@@ -1142,13 +1142,19 @@ namespace LMS
                 int isbn = exeption();
                 Book_return_req book_Return_Req = new Book_return_req();
                 book_Return_Req.lb = books_on_loan.Find(books_on_loan => books_on_loan.book.ISBN == isbn);
+                if (books_on_loan.Exists(books_on_loan => books_on_loan.book.ISBN == isbn) && logged_in_account.username == books_on_loan.Find(books_on_loan => books_on_loan.book.ISBN == isbn).user.username)
+                {
 
-                books_return_req_id++;
-                book_Return_Req.id = books_return_req_id;
+                    books_return_req_id++;
+                    book_Return_Req.id = books_return_req_id;
 
-                Console.WriteLine("request pending librarian approval.");
-                books_return_reqs.Add(book_Return_Req);
-
+                    Console.WriteLine("request pending librarian approval.");
+                    books_return_reqs.Add(book_Return_Req);
+                }
+                else
+                {
+                    Console.WriteLine("book was not loaned by you.");
+                }
 
 
 
@@ -1335,7 +1341,7 @@ namespace LMS
             if (book_isbn_found == false)
             {
                 Console.WriteLine("book not found ");
-                    delete_book();
+                delete_book();
             }
         }
 
@@ -1375,7 +1381,15 @@ namespace LMS
             switch (choice)
             {
                 case 1:
-                    deserialize_all();
+                    try { deserialize_all(); }
+                    catch
+                    {
+                        Console.WriteLine("this is the first time using the program on this device.");
+                        Console.WriteLine("please note at least 60 KB is needed to save recovery files.");
+                        serialize_all();
+                        deserialize_all();
+
+                    }
                     log_in();
                     if (logged_in_account.username != "")
                     {
@@ -1467,10 +1481,10 @@ namespace LMS
                     case 2: return_req_approval(); serialize_all(); break;
                     case 3: print_borrow_req(); serialize_all(); break;
                     case 4: print_return_reqs(); break;
-                    case 5: pay_fines();serialize_all(); break;
+                    case 5: pay_fines(); serialize_all(); break;
                     case 6: search_book_screen(); break;
-                    case 7: add_new_book();serialize_books(); break;
-                    case 8: delete_book();serialize_books(); break;
+                    case 7: add_new_book(); serialize_all(); break;
+                    case 8: delete_book(); serialize_all(); break;
                     case 9: log_out(); serialize_all(); main_screen(); break;
                     case 10: send_messege_to_user(); serialize_all(); break;
                     case 11: fines_report(); break;
@@ -1493,14 +1507,14 @@ namespace LMS
                 Console.WriteLine("5: generate report on library.");
                 Console.WriteLine("6: generate report on users fines and outstanding payments.");
                 Console.WriteLine("7: log_out.");
-                    
+
                 int choice = exeption();
                 switch (choice)
                 {
                     case 1: printUsers(); break;
                     case 2: admin_adding_user(); serialize_all(); break;
                     case 3: admin_del_user(); serialize_all(); break;
-                    case 4: admin_modfy_user();serialize_all(); break;
+                    case 4: admin_modfy_user(); serialize_all(); break;
                     case 5: library_report(); break;
                     case 6: fines_report(); break;
                     case 7: log_out(); serialize_all(); main_screen(); break;
@@ -1535,7 +1549,7 @@ namespace LMS
 
         static void Main(string[] args)
         {
-            
+
             LDB.init();
 
             //LDB.unit_testing();
