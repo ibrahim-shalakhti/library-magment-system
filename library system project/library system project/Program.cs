@@ -788,13 +788,14 @@ namespace LMS
         }
         public static void admin_modfy_user()
         {
-            Console.Clear();
+            
             Console.WriteLine("do you want to modify a user?");
             Console.WriteLine("Please enter yes or no....");
             string s = Console.ReadLine() + "";
 
             if (s == "yes")
             {
+                Console.Clear();
                 Console.WriteLine("Please enter user name to modify....");
                 string un = Console.ReadLine() + "";
                 bool un_found = false;
@@ -811,6 +812,7 @@ namespace LMS
                 }
                 if (!un_found)
                 {
+                    Console.Clear();
                     Console.WriteLine("Username not found. please try again.");
                     admin_modfy_user();
                 }
