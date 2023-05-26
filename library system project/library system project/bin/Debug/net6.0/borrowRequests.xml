@@ -1,26 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfBorrowReq xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <BorrowReq>
-    <user>
-      <notifications />
-      <messeges />
-      <username>tykeee</username>
-      <mode>2</mode>
-      <password>tykeee</password>
-      <phone_number>0791009351</phone_number>
-      <paid_fines>0</paid_fines>
-      <outstanding_fines>0</outstanding_fines>
-    </user>
-    <book>
-      <title>The Ancient Gods</title>
-      <author>gabe philps</author>
-      <ISBN>1000</ISBN>
-      <genre>History</genre>
-      <publication_year>2005</publication_year>
-      <on_loan>false</on_loan>
-      <on_req>true</on_req>
-    </book>
-    <date>0</date>
-    <id>1</id>
-  </BorrowReq>
-</ArrayOfBorrowReq>
+<ArrayOfBorrowReq xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />

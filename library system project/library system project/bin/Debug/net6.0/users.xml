@@ -54,7 +54,7 @@
     <notifications />
     <messeges />
     <username>ahmad</username>
-    <mode>0</mode>
+    <mode>2</mode>
     <password>ahmad</password>
     <phone_number>0814714516</phone_number>
     <paid_fines>0</paid_fines>
@@ -73,10 +73,10 @@
   <User>
     <notifications />
     <messeges />
-    <username>tykeee</username>
+    <username>quququ</username>
     <mode>2</mode>
-    <password>tykeee</password>
-    <phone_number>0791009351</phone_number>
+    <password>ququ</password>
+    <phone_number>p</phone_number>
     <paid_fines>0</paid_fines>
     <outstanding_fines>0</outstanding_fines>
   </User>
