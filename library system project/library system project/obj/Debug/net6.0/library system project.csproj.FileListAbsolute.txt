@@ -28,3 +28,18 @@ C:\Users\ibrahim shalakhti\Documents\GitHub\library-magment-system\library syste
 C:\Users\ibrahim shalakhti\Documents\GitHub\library-magment-system\library system project\library system project\obj\Debug\net6.0\library system project.pdb
 C:\Users\ibrahim shalakhti\Documents\GitHub\library-magment-system\library system project\library system project\obj\Debug\net6.0\library system project.genruntimeconfig.cache
 C:\Users\ibrahim shalakhti\Documents\GitHub\library-magment-system\library system project\library system project\obj\Debug\net6.0\ref\library system project.dll
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\bin\Debug\net6.0\library system project.exe
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\bin\Debug\net6.0\library system project.deps.json
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\bin\Debug\net6.0\library system project.runtimeconfig.json
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\bin\Debug\net6.0\library system project.dll
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\bin\Debug\net6.0\library system project.pdb
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\obj\Debug\net6.0\library system project.csproj.AssemblyReference.cache
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\obj\Debug\net6.0\library system project.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\obj\Debug\net6.0\library system project.AssemblyInfoInputs.cache
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\obj\Debug\net6.0\library system project.AssemblyInfo.cs
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\obj\Debug\net6.0\library system project.csproj.CoreCompileInputs.cache
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\obj\Debug\net6.0\library system project.dll
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\obj\Debug\net6.0\refint\library system project.dll
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\obj\Debug\net6.0\library system project.pdb
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\obj\Debug\net6.0\library system project.genruntimeconfig.cache
+C:\Users\Tykee\Desktop\library-magment-system\library system project\library system project\obj\Debug\net6.0\ref\library system project.dll

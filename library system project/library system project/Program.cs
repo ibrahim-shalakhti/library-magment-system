@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Xml.Serialization;
 
 namespace LMS
@@ -443,8 +444,14 @@ namespace LMS
             string UN = Console.ReadLine() + "";
             System.Console.WriteLine("Please Enter Your Password...");
             string PW = Console.ReadLine() + "";
-            System.Console.WriteLine("Please Enter Your Phone Number...");
-            string ph = Console.ReadLine() + "";
+            string phn= Enterphonenumber();
+            //while (!isValid)
+            //{
+            //    Console.WriteLine("The phone number is invalid \n please re enter the phone number ");
+            //    isValid = enterphonenumber();
+            //    string phn=
+
+            //}                                                                   /////////////////////////////////////////////////////////////////////function needed
             bool pass_conflict = false, user_conflict = false;
             foreach (User user in users)
             {
@@ -477,10 +484,63 @@ namespace LMS
             }
             if (!user_conflict && !pass_conflict)
             {
-                users.Add(new User(UN, PW, 2, ph));
+                users.Add(new User(UN, PW, 2, phn));
             }
 
         }
+        public static string Enterphonenumber()
+        {
+            System.Console.WriteLine("Please Enter Your Phone Number...");
+            string num = Console.ReadLine() + "";
+            if (num.Length != 10)
+            {
+                Console.Write("Phone number must be exactly 10 digits \n");
+                Enterphonenumber();
+
+
+            }
+            for (int i = 0; i < num.Length; i++)
+            {
+                if (num[i] < 48 || num[i] > 57)
+                {
+
+                    Console.WriteLine("The phone number is invalid \n");
+                    Enterphonenumber();
+
+
+                }
+                else
+                    continue;
+
+            }
+            return num;
+        }
+        //public static bool PhoneNumberIsValid(string num)
+        //{
+        //    bool flag = true;
+        //    if (num.Length != 10)
+        //    {
+        //        Console.Write("Phone number must be exactly 10 digits \n");
+        //        flag = false;
+        //        return flag;
+        //    }
+        //    for (int i = 0; i < num.Length; i++)
+        //    {
+        //        if (num[i] < 48 || num[i] > 57)
+        //        {
+
+        //            flag = false;
+        //            break;
+
+        //        }
+        //        else
+        //            continue;
+        //    }
+            
+        //    return flag;
+
+        //}
+
         public static void add_new_book()
         {
             Console.WriteLine("Adding a new book...");
@@ -719,6 +779,7 @@ namespace LMS
         }
         public static void admin_modfy_user()
         {
+            
             Console.WriteLine("do you want to modify a user?");
             Console.WriteLine("Please enter yes or no....");
             string s = Console.ReadLine() + "";
@@ -836,6 +897,15 @@ namespace LMS
                 Console.WriteLine("___________________________________");
 
             }
+            else
+                if (s == "no")
+                admin_screen();
+            else
+            {
+                Console.WriteLine("Invalid choice \n");
+                admin_modfy_user();
+            }
+
         }
         //start of variables serialization and deserialization
         public static void serialize_books()
@@ -1401,6 +1471,7 @@ namespace LMS
             Console.WriteLine("_________________________________________________________________________");
             Console.WriteLine("Enter 1 to log in.");
             Console.WriteLine("Enter 2 to register.");
+            Console.WriteLine("Enter 3 to exit.");
             int choice = exeption();
             switch (choice)
             {
@@ -1444,6 +1515,8 @@ namespace LMS
                     add_new_user();
                     serialize_all();
                     main_screen();
+                    break;
+                case 3:
                     break;
             }
 

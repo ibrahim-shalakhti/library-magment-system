@@ -73,10 +73,17 @@
   <User>
     <notifications />
     <messeges />
+<<<<<<< HEAD
     <username>ABD</username>
     <mode>2</mode>
     <password>ABD</password>
     <phone_number>0982</phone_number>
+=======
+    <username>quququ</username>
+    <mode>2</mode>
+    <password>ququ</password>
+    <phone_number>p</phone_number>
+>>>>>>> f7cca3e1fc6337262f4abdb5de9a26eed8321204
     <paid_fines>0</paid_fines>
     <outstanding_fines>0</outstanding_fines>
   </User>
