@@ -70,4 +70,14 @@
     <paid_fines>0</paid_fines>
     <outstanding_fines>0</outstanding_fines>
   </User>
+  <User>
+    <notifications />
+    <messeges />
+    <username>ABD</username>
+    <mode>2</mode>
+    <password>ABD</password>
+    <phone_number>0982</phone_number>
+    <paid_fines>0</paid_fines>
+    <outstanding_fines>0</outstanding_fines>
+  </User>
 </ArrayOfUser>
