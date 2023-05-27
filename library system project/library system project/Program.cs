@@ -1094,7 +1094,7 @@ namespace LMS
             foreach (BorrowReq r in borrowRequests)
             {
                 Console.WriteLine("request_id " + r.id + " | user " + r.user.username + " requests " + r.book.title);
-
+                counter++;
             }
             if (counter == 0)
                 Console.WriteLine("No Requests Found!!");
@@ -1105,7 +1105,7 @@ namespace LMS
             foreach (BorrowReq r in borrowRequests)
             {
                 Console.WriteLine("request_id " + r.id + " | user " + r.user.username + " requests " + r.book.title);
-
+                counter++;
             }
             if (counter == 0)
             { Console.WriteLine("No Requests Found!!"); }

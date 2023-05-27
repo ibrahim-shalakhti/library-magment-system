@@ -1,2 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfLoaned_books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfLoaned_books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Loaned_books>
+    <user>
+      <notifications />
+      <messeges />
+      <username>baha</username>
+      <mode>2</mode>
+      <password>baha</password>
+      <phone_number>0790415415</phone_number>
+      <paid_fines>0</paid_fines>
+      <outstanding_fines>0</outstanding_fines>
+    </user>
+    <book>
+      <title>Dracula</title>
+      <author>anas j. hamadi</author>
+      <ISBN>1019</ISBN>
+      <genre>Horror</genre>
+      <publication_year>2007</publication_year>
+      <on_loan>true</on_loan>
+      <on_req>false</on_req>
+    </book>
+    <due_date>3</due_date>
+  </Loaned_books>
+  <Loaned_books>
+    <user>
+      <notifications />
+      <messeges />
+      <username>baha</username>
+      <mode>2</mode>
+      <password>baha</password>
+      <phone_number>0790415415</phone_number>
+      <paid_fines>0</paid_fines>
+      <outstanding_fines>0</outstanding_fines>
+    </user>
+    <book>
+      <title>Not Funny</title>
+      <author>anas j. hamadi</author>
+      <ISBN>1017</ISBN>
+      <genre>Comedy</genre>
+      <publication_year>2007</publication_year>
+      <on_loan>true</on_loan>
+      <on_req>false</on_req>
+    </book>
+    <due_date>7</due_date>
+  </Loaned_books>
+</ArrayOfLoaned_books>
