@@ -445,13 +445,6 @@ namespace LMS
             System.Console.WriteLine("Please Enter Your Password...");
             string PW = Console.ReadLine() + "";
             string phn= Enterphonenumber();
-            //while (!isValid)
-            //{
-            //    Console.WriteLine("The phone number is invalid \n please re enter the phone number ");
-            //    isValid = enterphonenumber();
-            //    string phn=
-
-            //}                                                                   /////////////////////////////////////////////////////////////////////function needed
             bool pass_conflict = false, user_conflict = false;
             foreach (User user in users)
             {
@@ -491,56 +484,26 @@ namespace LMS
         public static string Enterphonenumber()
         {
             System.Console.WriteLine("Please Enter Your Phone Number...");
+            bool vaild;
             string num = Console.ReadLine() + "";
             if (num.Length != 10)
             {
                 Console.Write("Phone number must be exactly 10 digits \n");
-                Enterphonenumber();
-
-
+                return Enterphonenumber();
             }
-            for (int i = 0; i < num.Length; i++)
+            try
             {
-                if (num[i] < 48 || num[i] > 57)
-                {
-
-                    Console.WriteLine("The phone number is invalid \n");
-                    Enterphonenumber();
-
-
-                }
-                else
-                    continue;
-
+                int x = int.Parse(num);
+                vaild = true;
+            }
+            catch{vaild = false;}
+            if (vaild == false)
+            {
+                Console.WriteLine("you cant enter letters. please try again.");
+                return Enterphonenumber();
             }
             return num;
         }
-        //public static bool PhoneNumberIsValid(string num)
-        //{
-        //    bool flag = true;
-        //    if (num.Length != 10)
-        //    {
-        //        Console.Write("Phone number must be exactly 10 digits \n");
-        //        flag = false;
-        //        return flag;
-        //    }
-        //    for (int i = 0; i < num.Length; i++)
-        //    {
-        //        if (num[i] < 48 || num[i] > 57)
-        //        {
-
-        //            flag = false;
-        //            break;
-
-        //        }
-        //        else
-        //            continue;
-        //    }
-            
-        //    return flag;
-
-        //}
-
         public static void add_new_book()
         {
             Console.WriteLine("Adding a new book...");
@@ -1471,7 +1434,6 @@ namespace LMS
             Console.WriteLine("_________________________________________________________________________");
             Console.WriteLine("Enter 1 to log in.");
             Console.WriteLine("Enter 2 to register.");
-            Console.WriteLine("Enter 3 to exit.");
             int choice = exeption();
             switch (choice)
             {
@@ -1516,8 +1478,7 @@ namespace LMS
                     serialize_all();
                     main_screen();
                     break;
-                case 3:
-                    break;
+                    default: main_screen(); break;
             }
 
         }
